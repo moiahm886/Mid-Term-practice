@@ -1,18 +1,19 @@
 #include<iostream>
 #include<string>
 #include<set>
+#include<unordered_set>
 using namespace std;
 struct Node
 {
 	int data;
 	Node* Next;
 };
-class list
+class List
 {
 private:
 	Node* head;
 public:
-	list()
+	List()
 	{
 		head = NULL;
 	}
@@ -107,6 +108,37 @@ public:
 		{
 			cout << *it << "\t";
 		}
+		cout << endl;
+	}
+	void deleteduplicate()
+	{
+		if (head == NULL) {
+
+			cout << "List is Empty\n";
+
+		}
+		else {
+
+			unordered_set<int>list;
+			Node* current = head;
+			Node* previous = head;
+			int index = 0;
+			while (current != NULL) 
+			{
+				if (list.find(current->data) != list.end()) 
+				{
+					previous->Next = current->Next;
+					delete (current);
+				}
+				else
+				{
+					list.insert(current->data);
+					previous = current;
+				}
+				current = previous->Next;
+			}
+
+		}
 	}
 	void display()
 	{
@@ -122,7 +154,7 @@ public:
 int main()
 { 
 	Node* N{};
-	list l;
+	List l;
 	l.insertatend(N, 49);
 	l.insertatbeginning(N, 98);
 	l.insertatbeginning(N, 67);
@@ -131,4 +163,6 @@ int main()
 	l.deleteatbeginning();
 	l.display();
 	l.displayreverse();
+	l.deleteatend();
+	l.display();
 }
